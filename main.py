@@ -4,9 +4,8 @@ from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from pydantic import BaseModel, ConfigDict
 from typing import List
-import os 
-
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")  # Changed to SQLite for local testing
+import os
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://suraj2024a:Kumar3310@surajkumarshah-2024a-db.postgres.database.azure.com:5432/postgres")    
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
@@ -20,6 +19,7 @@ class QueryModel(Base):
     query = Column(String, nullable=False)
 
 try:
+    
     Base.metadata.create_all(bind=engine)
 except Exception as e:
     print(f"Error creating tables: {e}")
